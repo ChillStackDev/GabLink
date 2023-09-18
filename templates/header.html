@@ -1,0 +1,97 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+
+
+
+<style>
+    .search-bar {
+        position: relative;
+        display: flex;
+    }
+
+    .search-input {
+        padding: 8px 15px;
+        border: 2px solid #ccc;
+        border-radius: 20px;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        font-size: 16px;
+        outline:none;
+    }
+
+    .search-input:focus {
+        border-color: violet;
+        box-shadow: 0 0 10px violet;
+    }
+
+    .search-icon {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+    }
+</style>
+
+
+<div class="header">
+    <div class="logo">
+        <div class="logo-text">DabLink</div>
+        
+    </div>
+    <form onsubmit="return executeQuery();">
+        <div class="search-bar">
+            <input class="search-input" type="text" placeholder="Search.." name="search"  id="id_q"> 
+            <button type="submit" class="search-icon"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    {% if  request.user.is_authenticated %}
+        <div class="header-icons">
+            <a href="{% url 'home' %}"><i class='fab fa-rocketchat' ></i></a>
+            <div class="account-dropdown">
+                {% if user.profile.image %}
+                    <img class="account-image" src="{{ request.user.profile.image.url }}" alt="Profile-Pic">
+                {% else %}
+                    <img class="account-image" src="{% static 'assets/dp.png' %}" alt="Profile-Pic">
+                {% endif %}
+                    <div class="account-menu">
+                        <a href="{% url 'account_view' user_id=request.user.id %}">Account</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+            </div>
+        </div>
+    {% else %}
+          <div class="header-right">
+            <a href="#" class="greeting">Hii</a>
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+          </div>
+    {% endif %}
+</div>
+
+
+<script>
+
+  
+    function toggleDropdown() {
+        var dropdownContent = document.getElementById("myDropdown");
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      }
+
+    function executeQuery() {
+        var query = ""
+        query = document.getElementById('id_q').value;
+       
+        window.location.replace("{% url 'search' %}?q=" + query)
+        return false
+      }    
+</script>
+
+<script>
+  document.getElementById("homeButton").addEventListener("click", function() {
+     
+      window.location.href = "{% url 'home' %}";
+  });
+  </script>

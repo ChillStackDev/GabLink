@@ -1,0 +1,144 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  padding: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: 10%;
+  color: rgb(169,17,211);
+}
+
+.logo-text {
+  font-size: 35px;
+  margin-right: 10px;
+  font-family: 'El Messiri', sans-serif;
+  font-weight: bolder;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+}
+
+
+.search-bar {
+  position: relative;
+  display: flex;
+}
+
+.search-input {
+  padding: 8px 15px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  font-size: 16px;
+  outline:none;
+}
+
+.search-input:focus {
+  border-color: violet;
+  box-shadow: 0 0 10px violet;
+}
+
+.search-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  width: 20px;
+  height: 20px;
+  margin-left: -30px;
+}
+
+
+.account-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 45px; 
+}
+
+.account-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.account-menu {
+  display: none;
+  position: absolute;
+  background-color: #f0f0f0;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.account-menu a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color:rgb(169,17,211);
+}
+
+.account-menu a:hover{
+  color:violet;
+}
+.account-dropdown:hover .account-menu {
+  display: block;
+  
+  
+}
+
+.account-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 20px; /* Adjusted spacing for larger icon */
+}
+.fab{
+  font-size: 48px;
+  position: relative;
+  top: 15px;
+  color: rgb(169,17,211);
+  transition: color 0.3s;
+}
+
+.fab:hover{
+  color:violet
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+  .logo{
+      display: none;
+  }
+  .header {
+     
+      text-align: center;
+  }
+  
+  .fab{
+      font-size: 30px;
+      position: relative;
+      top: 2px;
+     
+  }
+  
+  .account-dropdown {
+      margin-left: 15px;
+      margin-top: 10px;
+  }
+  
+  .account-image {
+      margin: 0 auto 10px;
+      height: 70%;
+      width: 40px;
+  }
+}

@@ -1,0 +1,346 @@
+
+{% load static %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{% block css %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+crossorigin="anonymous" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" integrity="sha512-vEia6TQGr3FqC6h55/NdU3QSM5XR6HSl5fW71QTKrgeER98LIMGwymBVM867C1XHIkYD9nMTfWK2A0xcodKHNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<style>
+
+ 
+       
+    
+    .message-area {
+        background:url({% static 'images/background.png' %});
+        min-height: 85vh;
+       
+      }
+    .back{
+        display:none;
+    }
+    .account-menu {
+        display: none;
+        position: absolute;
+        background-color: #f0f0f0;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        left: 0;
+      }
+      
+      .account-menu a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color:rgb(169,17,211);
+      }
+      
+      .account-menu a:hover{
+        color:violet;
+      }
+
+      #hi:hover .account-menu {
+        display: block;
+        
+        
+      }
+
+      #message_input{
+        width:100%;
+      }
+      
+      
+      
+@media (max-width: 575.98px) {
+    #hi {
+        display: none;
+    }
+    .back{
+        display:inline-block;
+    }
+    #contactsArea {
+        display:none;
+     }
+     #place{
+        width:75%;
+     }
+     #sub{
+        width:75;
+     }
+
+     .message-table-scroll {
+        
+        height: 550px;
+       
+    }
+}
+
+
+
+</style>
+
+
+
+<div class="back-container">
+    <div class="container-fluid front-container">
+        <div class="back-top"></div>
+        <div class="back-main"></div>
+    </div>
+    <div class="container front-container1">
+        <div class="row chat-top">
+            <div class="col-sm-4 border-right border-secondary " id="hi">
+                <img src="{{ request.user.profile.image.url }}" alt="" class="profile-image rounded-circle">
+                <span class="ml-2">{{request.user.username}}</span>
+            
+                <div class="account-menu">
+                    <a href="{% url 'account_view' user_id=request.user.id %}">Account</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            
+
+            </div>
+            <div class="col-sm-8 hello" id="hello">
+                <a href="#" class="back"><i class="fa fa-arrow-left" style="font-size:24px"></i></a>
+                <img src="{{ user.profile.image.url }}" alt="" class="profile-image rounded-circle">
+                <span class="ml-2">{{user.username}}</span>
+                {% if user.userprofilemodel.online_status %}
+                <small id="{{user.username}}_small">Online</small>
+                {% else %}
+                <small id="{{user.username}}_small">Offline</small>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="row">
+        
+            <div class="col-sm-4 contacts" id="contactsArea">
+            <form onsubmit="return executeQuery();">
+                <div class="sidebar-search">
+                    <div class="sidebar-search-container">
+                        
+                        <input type="text" placeholder="Search or start new chat"  name="search"  id="id_q">
+                        <button type="submit" class="search-icon"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+                <div class="contact-table-scroll">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for friend in friends %}
+                            <tr>
+                                <td>   {% if friend.profile.image %}
+                                    <img src="{{ friend.profile.image.url }}" alt="Profile Image" class="profile-image rounded-circle">
+                                    {% else %}
+                                    <img src="{% static 'assets/dp.png' %}" alt="" class="profile-image rounded-circle">
+                                    {% endif %}
+                                </td>
+                                {% if user.userprofilemodel.online_status %}
+                                <td><a style="color:green" id="{{friend.username}}_status"  href="{% url 'chat' username=friend.username %}">{{friend.username}}</a></td>
+                                {% else %}
+                                <td><a style="color:#000033" id="{{friend.username}}_status"  href="{% url 'chat' username=friend.username %}">{{friend.username}}</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+
+                          
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-sm-8 message-area" id="messageArea">
+              
+                <div class="message-table-scroll" id="scroll-msg">
+                    <table class="table">
+                        <tbody id='chat-body'>
+                            {% for message in messages %}
+                            {% if message.sender == request.user.username %}
+                            <tr>
+                                <td>
+                                    <p class="you">
+                                        <span class="chat-message">{{message.message}}</span>
+                                        <span class="chat-timestampy">{{message.timestamp|time:'H:i'}}</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr >
+                                <td>
+                                    <p class="frnd">
+                                        <span class="chat-message">{{message.message}}</span>
+                                        <span class="chat-timestampf">{{message.timestamp|time:'H:i'}}</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div> 
+             
+                <div class="row message-box p-3">
+                    <div class="col-sm-2 mt-2">
+                      
+                        
+                    </div>
+                    <div class="col-sm-8" id="place">
+                        
+                        <textarea type="text" class="form-control" id="message_input" placeholder="Write message..."   rows = "4" cols = "50" wrap="off"></textarea>
+                        
+                      
+
+                    </div>
+                    <div class="col-sm-2 mt-1" id="sub">
+                        <div class="control">
+                            <button class="btn btn-success" id="chat-message-submit">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{{user.id|json_script:"json-username"}}
+{{user.username|json_script:"json-username-receiver"}}
+{{request.user.username|json_script:"json-message-username"}}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script>
+    var chatHistory = document.getElementById("scroll-msg");
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+    function executeQuery() {
+        var query = ""
+        query = document.getElementById('id_q').value;
+       
+        window.location.replace("{% url 'search' %}?q=" + query)
+        return false
+      }   
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js" integrity="sha512-hkvXFLlESjeYENO4CNi69z3A1puvONQV5Uh+G4TUDayZxSLyic5Kba9hhuiNLbHqdnKNMk2PxXKm0v7KDnWkYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+        $("#message_input").emojioneArea({
+            pickerPosition: "top",
+            events: {
+                focus: function (editor) {
+                    scrollToBottom();
+                }
+            }
+
+        });
+      
+    
+        $(document).ready(function () {
+            $("#chat-message-submit").click(function (e) {
+                e.preventDefault();
+                $(".emojionearea-editor").html('');
+            });
+        });
+    });
+</script>
+
+<!-- Add this script to your HTML -->
+<script>
+    function handleTextareaInput() {
+      var textarea = document.getElementById("message_input");
+      var maxWidth = 300; // Adjust this value as needed
+  
+      var lines = textarea.value.split("\n");
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (line.length > maxWidth) {
+          var newLines = [];
+          while (line.length > maxWidth) {
+            newLines.push(line.substring(0, maxWidth));
+            line = line.substring(maxWidth);
+          }
+          newLines.push(line);
+          lines[i] = newLines.join("\n");
+        }
+      }
+      textarea.value = lines.join("\n");
+    }
+  
+    // Attach the event listener to the textarea
+    var textarea = document.getElementById("message_input");
+    textarea.addEventListener("input", handleTextareaInput);
+  
+    // Trigger the function initially to handle existing content
+    handleTextareaInput();
+  </script>
+  
+
+
+
+<script src="{% static 'js/chat.js' %}"></script>
+<script src="{% static 'js/online_status.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const hi = document.getElementById("hi");
+        const hello = document.getElementById("hello");
+        const contactsArea = document.getElementById("contactsArea");
+        const messageArea = document.getElementById("messageArea");
+        const back = document.getElementById(".back");
+        
+        
+  
+        const backTag = document.querySelector(".back");
+        backTag.addEventListener("click", function(e) {
+            if (window.innerWidth<= 575.98){
+            e.preventDefault();
+            
+           
+            contactsArea.style.display = "block";
+            hi.style.display = "block";
+            hello.style.display = "none";
+            messageArea.style.display = "none"; 
+
+            }
+           
+        });
+    });
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $('#message_input').on('input', function() {
+        var inputValue = $(this).val();
+        var inputWidth = $(this).width();
+        var textWidth = getTextWidth(inputValue, '16px Arial'); // Adjust font size and type
+
+        if (textWidth > inputWidth) {
+            $(this).css('width', textWidth + 'px');
+        }
+    });
+
+    function getTextWidth(text, font) {
+        var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+        var context = canvas.getContext("2d");
+        context.font = font;
+        var metrics = context.measureText(text);
+        return metrics.width;
+    }
+});
+</script>
+
+
+{% endblock %}

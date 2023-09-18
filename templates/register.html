@@ -1,0 +1,99 @@
+
+{% extends "base1.html" %}
+{% load static %}
+{% block css %}	 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">{% endblock css %}
+{% block content %}
+
+
+<style>
+    .btn{
+        background:violet;
+        color:white;
+    }
+    .btn:hover{
+        background:rgb(169,17,211);
+        color:white;
+    }
+
+    .form-control:focus {
+        border-color: violet;
+        box-shadow: 0 0 0 0.25rem rgba(238, 130, 238, 0.25);
+    }
+    a{
+        color:violet
+    }
+    a:hover{
+        color:rgb(169,17,211);
+    }
+</style>
+<div class="container mt-5 pt-4">
+    
+    <div class="col-6 mx-auto">
+        <h3 class="text-center">Register</h3>
+        <form method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if message %}
+            <div class="alert alert-{{class}}">
+                {{message}}
+            </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="form-group col-12">
+                    <input type="text" placeholder="Email" class="form-control" name="email" id="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <input type="text" placeholder="Name" class="form-control" name="name" id="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <input type="text" placeholder="Mobile" class="form-control" name="mobile" id="">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="image">Upload Image:</label>
+                    <input type="file" class="form-control-file" name="image" id="image">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12">
+                    <img id="image-preview" src="" alt="Image Preview" style="max-width: 100px;">
+                </div>
+            </div>
+
+            <p>Already have account <a href="{% url 'login' %}">Login</a></p>
+            <button class="btn">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+
+
+<script>
+    
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('image-preview');
+
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.addEventListener('load', function() {
+                imagePreview.src = reader.result;
+            });
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = ''; 
+        }
+    });
+</script>
+
+{% endblock %}

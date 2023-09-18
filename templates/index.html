@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>GabLink</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- responsive style -->
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              GabLink
+            </span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img  src="{% static 'images/base.jpg' %}" alt="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    <h1>
+                      Add Friends 
+                    </h1>
+                    <p>
+                      As a user of GabLink, you can easily expand your network by adding friends through their unique usernames. This allows you to connect with people you know and initiate private conversations, making your chatting experience more personalized and enjoyable.
+                    </p>
+                    <div class="btn-box">
+                      <a href="{% url 'login' %}" class="btn1">
+                        Sign In
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img  src="{% static 'images/chat.png' %}" alt="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    <h1>
+                      CHAT
+                    </h1>
+                    <p>
+                      GabLink offers you the delightful opportunity to create discreet connections with your friends, fostering intimate and unrestricted conversations where you can openly exchange your most tantalizing thoughts, ideas, and experiences.
+                    </p>
+                    <div class="btn-box">
+                      <a href="{% url 'login' %}" class="btn1">
+                        Sign In
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#customCarousel1" data-slide-to="1"></li>
+        </ol>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+   
+   <script src=" https://code.jquery.com/jquery-3.5.1.slim.min.js   "></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  
+ 
+  
+
+ 
+</body>
+
+</html>

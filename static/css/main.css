@@ -1,0 +1,154 @@
+      
+      .back-container {
+        position: relative;
+      }
+      
+      .front-container1 {
+        position: absolute;
+        
+        left: 0;
+        right: 0;
+        max-width: 1500px;
+        font-family: 'Poppins',sans-serif;
+      }
+      
+      .chat-top {
+        background-color: #ededed;
+        min-height: 50px;
+      }
+      
+      .profile-image {
+        margin-top: 7px;
+        height:60px;
+        width: 60px;
+        border: 1px solid rgb(169,17,211);
+      }
+      
+      .contacts {
+        background-color: #d6c9c957;
+        min-height: 600px;
+      }
+      
+      .contact-table-scroll {
+        overflow-y: scroll;
+        height: 600px;
+   
+      }
+      
+     
+      
+      .message-table-scroll {
+        overflow-y: scroll;
+       
+        margin-right:-15px;
+        height: 670px;
+        max-height:83.5vh;
+      }
+      
+      .message-box {
+        background-color: #f0f0f0;
+      }
+      
+      .contacts td a {
+        display: block; 
+        margin-top: 10%; 
+      }
+      .a{
+        color:rgb(169,17, 211);
+        margin-right: 50px;
+        font-size:20px;
+        
+      }
+
+     .emojionearea.emojionearea-inline{
+        flex: 20;
+        margin: 5px 12px;
+        padding: 12px;
+        outline: none;
+        border: 2px solid #ccc;
+       
+        border-radius: 20px;
+        font-size: 15px;
+     }
+
+
+  
+    .control .btn{
+        border-radius: 20px;
+    }
+    .frnd{
+        font-size: 14px;
+        padding: 8px 10px;
+        width: fit-content;
+        border-radius: 8px;
+        background-color: white;
+        margin-bottom: 30px;
+    }
+    .you{
+        font-size: 10px;
+        padding: 8px 10px;
+        max-width:450px;
+        border-radius: 8px;
+        background-color: rgb(169,17,211);
+        color:white;
+        margin-bottom: 30px;
+        float:right;
+    }
+    .chat-timestampf {
+        margin-left: 10px;
+        font-size: 10px;
+        color: #330000;
+    }
+    .chat-timestampy {
+        margin-left: 10px;
+        font-size: 10px;
+        color: white;
+    }
+
+    .sidebar-search {
+        display: flex;
+        align-items: center;
+        background-color: #f6f6f6;
+        padding: 10px 15px;
+    }
+    .sidebar-search-container {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        width: 100%;
+        
+        border-radius: 20px;
+    }
+    .sidebar-search-container input {
+      padding: 8px 40px;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      font-size: 16px;
+      outline:none;
+    }
+
+    .sidebar-search-container input:focus{
+      border-color: violet;
+      box-shadow: 0 0 10px violet;
+  }
+    .search-icon {
+        background-color: transparent;
+        width: 20px;
+        height: 20px;
+        margin-left: -40px;
+        border: none;
+    }
+   
+    .emojionearea .emojionearea-editor 
+    {
+      
+      min-height: 5px;
+      border: 1px solid #ccc;
+      max-height: 50px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+  
+    
