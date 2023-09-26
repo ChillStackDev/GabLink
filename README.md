@@ -1,6 +1,6 @@
 # GabLink
 
-Hello Welcome to GabLink,Here we can Add Friends and can have a conversation with them
+Hello Welcome to GabLink,Here we can Add Friends and can have conversations with them
 
 !-------Preview Of GabLink------!
 
